@@ -38,7 +38,8 @@ V. MVC
 2. Cách thiết lập mô hình MVC
 
 3. Các hàm và cú pháp thường được dùng trong tường phần của mô hình MVC
-	-- View:
+	
+ 	-- View:
 		
 	-- Model:
 					
