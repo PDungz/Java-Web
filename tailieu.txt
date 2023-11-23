@@ -1,0 +1,330 @@
+Ôn tập Java Web
+
+------------------------------------------------------------------------
+
+** Import các file và thư viện bằng cách sử dụng các chỉ thị page và taglib trong đầu trang của file JSP
+
+	-- Import các file Java:
+	// Để import một file Java vào JSP, bạn có thể sử dụng chỉ thị page với thuộc tính import. Dưới đây là một ví dụ:
+	
+	<%@ page import="package_name.ClassName" %>
+
+	-- Import các thư viện (tag libraries):
+	// Để sử dụng các thư viện JSTL hoặc các thư viện tùy chỉnh khác, bạn cần sử dụng chỉ thị taglib. Dưới đây là cách bạn có thể thực hiện:
+	
+	<%@ taglib uri="thu_viện_URI" prefix="thu_vien" %>
+	
+	VD:
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	-> uri: là địa chỉ của thư viện JSTL hoặc thư viện tùy chỉnh.
+	-> prefix: là tiền tố được sử dụng khi bạn gọi các thẻ từ thư viện đó.
+	-> Với các thư viện JSTL, thường có hai địa chỉ phổ biến nhất là "http://java.sun.com/jsp/jstl/core" cho thư viện Core và "http://java.sun.com/jsp/jstl/functions" cho thư viện Functions.
+
+	-- Import bootstrap
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/views/bootstrap/css/bootstrap.min.css">
+	
+	<script src="${pageContext.request.contextPath}/views/bootstrap/js/bootstrap.min.js"></script>
+** Tất cả các thư viện nằm trong thư mục lib_import
+
+	-- Các file thư viện cần có
+
+		1.	jakarta.servlet-api-6.0.0
+		2.	javax.servlet.jsp.jstl-1.2.5
+		3.	javax.servlet.jsp.jstl-api-1.2.2
+		4.	javax.servlet.jsp-api-2.3.3
+		5.	jstl-1.2
+		6.	mysql-connector-j-8.2.0
+	-- Cần có tomcat 9 để chạy
+		1.	apache-tomcat-9.0.65
+
+-------------------------------------------------------------------------
+
+I. sử dụng cú pháp cơ bản
+
+-- Cú pháp: <% %>
+
+để viết code java xủ lý trong file jsp
+<% code java viết trong này %>
+
+-- Cú pháp: <%= %>
+khi muốn hiển thị một giá trị nào đó của java lên trên trình duyệt
+
+II. SỬ lý form 
+
+-- Cấu trúc form
+
+-> điều cần quan tâm nhất của thẻ form có hai thuộc tính
+	+ action : Có nhiệm vụ định hướng data được gửi đến đâu
+	+ method : Data được gửi theo phương thức gì(GET hoặc POST)
+-> Các thẻ trong form: input, select, ...
+
+Cấu trúc cơ bản của form
+<form action="đường dẫn" method="GET hoặc POST">
+	<input type="" name="" />
+	<input type="submit" name="" />
+	<input type="reset" name="" />
+</form>
+
+-- Dùng hàm: getParameter()
+Để lấy giá trị được gửi từ form
+	request.getParameter("Tên của thể muốn lấy data")
+VD: String firtName = request.getParameter("firstName");
+
+-- Dùng hàm: sendRedirect()
+Chuyển dướng trình duyệt
+-- Dùng hàm: sendError(404)
+Chuyển đến trang lỗi 404
+VD:  response.sendRedirect("Đường dẫn");
+
+III. Cookies và Session
+1/ Cooies
+	// Tạo một cookie
+	-- Cú pháp:
+	Cookie CookiesName = new Cookie("Name", "Value");
+        VD:
+	Cookie cookie = new Cookie("myCookie", "HelloCookie");
+
+        // Đặt thời gian sống của cookie (ví dụ: 24 giờ)
+        -- Cú pháp:
+	cookie.setMaxAge(Thới gian);
+	VD:
+	cookie.setMaxAge(24 * 60 * 60);
+
+        // Thêm cookie vào HTTP response
+	-- Cú pháp: 
+	response.addCookie(NameCookies);
+	VD:
+        response.addCookie(cookie);
+
+	// Đọc tất cả các cookie từ yêu cầu
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("myCookie")) {
+                    String cookieValue = cookie.getValue();
+                }
+            }
+        }
+
+2/ Session
+	// Đặt giá trị vào session
+	-- Cú pháp: 
+	session.setAttribute("Name", "Value");
+	VD:
+        session.setAttribute("username", "JohnDoe");
+
+	// Đặt thời gian cho phiên làm việc
+	-- Cú pháp:
+	session.setMaxInactiveInterval(thời gian);
+	VD:
+	session.setMaxInactiveInterval(5);
+
+	// Hủy bỏ session
+	-- Cú pháp:
+        session.invalidate();
+
+	// Đọc giá trị từ session
+	-- Cú pháp:
+	session.getAttribute("Name");
+	VD:
+	session.getAttribute("username");
+
+IV. JSTL (Mộ số câu lệnh thường dùng với JSTL)
+
+	-- Thêm thư viện jstl để sử dụng
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+	-- Một số câu lệnh thông dụng của JSTL
+		<c:forEach>, <c:if>, <c:choose>, <c:when>, <c:otherwise>)
+
+	-- Vòng lặp forEach:
+		// Có giá trị bắt đầu và kết thúc
+		<c:forEach var="i" begin="1" end="5">
+        	    Item ${i}
+        	</c:forEach>
+		// Duyệt mảng với forEach
+		Với myList là một cấu trúc mảng
+		<c:forEach var="item" items="${myList}">
+    			${item}
+		</c:forEach>
+
+	-- Câu điều kiện if
+		<c:if test="${condition}">
+    			<!-- Thực hiện khi điều kiện đúng -->
+		</c:if>
+		//---------------------------------------------
+		<c:if test="${fn:contains(myString, 'Hello')}">
+    			<!-- Thực hiện khi chuỗi myString chứa từ 'Hello' -->
+		</c:if>
+	-- Câu điều kiện choose
+		<c:choose>
+    			<c:when test="${condition1}">
+        			<!-- Thực hiện khi điều kiện 1 đúng -->
+    			</c:when>
+    			<c:otherwise>
+       				<!-- Thực hiện khi tất cả các điều kiện trước đó không đúng -->
+    			</c:otherwise>
+		</c:choose>
+	
+	-- Định dạng ngày giờ và số với <fmt:formatDate> và <fmt:formatNumber>:
+
+		// Định dạng ngày giờ
+		<fmt:formatDate value="${date}" pattern="dd/MM/yyyy" var="formattedDate"/>
+		<p>Formatted Date: ${formattedDate}</p>
+		// Định dạng số
+		<fmt:formatNumber value="${number}" pattern="#,###.##" var="formattedNumber"/>
+		<p>Formatted Number: ${formattedNumber}</p>
+
+
+	-- Lưu và đọc session 
+		<c:set var="name" value="Value"/>
+		<c:out value="${name}"/>
+
+	-- Chuyển hướng trang với <c:redirect>
+		<c:redirect url="newPage.jsp"/>
+
+
+V. MVC
+
+jdbc:mysql://localhost:3308/sinhvien
+
+1. Mô Hình MVC là gì
+
+	-- Model (Mô Hình):
+		Đại diện cho dữ liệu và logic xử lý dữ liệu.
+		Lưu trữ và quản lý thông tin về trạng thái của ứng dụng.
+		Thông báo về bất kỳ thay đổi nào trong trạng thái của mình tới các thành phần khác.
+
+	-- View (Giao Diện):
+		Đại diện cho giao diện người dùng (UI) và cách dữ liệu được hiển thị.
+		Hiển thị thông tin từ Model cho người dùng và chuyển tín hiệu người dùng đến Controller.
+		Không chứa logic xử lý dữ liệu, chỉ hiển thị thông tin.
+
+	-- Controller (Bộ Điều Khiển):
+		Nhận tín hiệu từ người dùng qua View và thực hiện các xử lý cần thiết.
+		Cập nhật Model khi có thay đổi trong dữ liệu.
+		Tương tác với Model và View để thực hiện logic ứng dụng.
+		Làm trung gian giữa Model và View.
+2. Cách thiết lập mô hình MVC
+	Trong gói com.example.controller, bạn có thể đặt các Servlet hoặc các class điều khiển.
+	Trong gói com.example.model, đặt các class mô hình và các class DAO.
+	Trong gói com.example.view, đặt các trang JSP hoặc các file hiển thị khác.
+
+3. Các hàm và cú pháp thường được dùng trong tường phần của mô hình MVC
+	-- View:
+		- Thư viện: jstl và boostrap(không bắt buộc)
+			jstl: <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+			bootstrap: <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+		- Ý tưởng xây dựng view:
+			+ Dùng thẻ "table" để hiển thị danh sách 
+			+ Dùng "thể "a" để thực hiện các chức năng "thêm, sửa, xóa,..." dùng để điều hướng và gửi dữ liệu lên "url"
+				vd: <a href="/QLSV/views/delete.jsp?msv=${sinhvien.getMsv()}&delete=delete">Xóa</a>
+				<a href="<đây là đường dẫn muốn gửi tới>?<tên thuộc tính giá trị được gửi>=<giá trị của thuộc tính>&<tên thuộc tính giá trị được gửi>=<giá trị của thuộc tính>&..">Xóa</a>
+				-> Trong href của thẻ a : "?" phía sau là các giá trị muốn gửi và cách nhau bằng "&"		
+		- Các hàm và cú pháp hay sử dụng:
+			+ <% code java trong này %> 
+				Để code java trong file .jsp
+			+ <%= biến được đặt ra và gán giá trị %>
+				Hiển thị giá trị biến được gán trong code java lên file .jsp
+			+ ${tên thuộc tính giá trị được gửi}
+				khi có request.setAttribute("tên thuộc tính giá trị được gửi", giá trị muốn gửi);
+				thay cho viêc sử dụng request.getParameter("tên thuộc tính giá trị được gửi");
+			+ forEach của jstl:
+				<c:forEach var="biến" items="${danh sách cần hiển thị}">
+				</c:forEach>
+	-- Model:
+		- Thư viện: 
+			Các thư biện cơ bản 
+			+ Cho model DAO
+				import java.sql.Connection;
+				import java.sql.PreparedStatement;
+				import java.sql.ResultSet;
+				import java.util.ArrayList;
+				import java.util.List;
+
+		- Ý tưởng xây dựng model 
+			+ Bean:
+				- Các thuộc tính  xây dựng dựa trên các thuộc tính của bảng csdl muốn kết nôi
+				- Xây dựng constructor có tham số, không tham số, get, set, toString()
+			+ DAO:
+				- Xây dựng file tạo kết nối 
+				- Xây dựng các file DAO khác theo tường bảng đối tượng muốn kết nối
+					+ Trong này sử dụng kết nối tạo sẵn của file kết nối(có hàm mở và đóng kết nối database)
+					+ Xây dựng các hàm giao tiếp với Database(thêm, sửa, xóa, lấy danh sách của bảng ra)
+					+ Các hàm đảm bảo các bước chính:
+						- Mở kết nối DB
+						- Tạo statement
+						- Thục hiện câu truy vấn
+						- đóng kết nối
+						- Trả về kết quả
+
+					+ Xây dựng hàm:
+						public static void main(String[] args) {
+						}
+						Test các hàm sử lý dữ liệu với database
+		- Các hàm và cú pháp hay sử dụng (DAO phần lớn)
+			- List<Lớp đối tượng Bean> đối tượng = new ArrayList<>();
+			- Tạo kết nối
+				// Mo ket noi
+				Connection "tên biến kết nối" = lớp kết nối.getConnection();
+				
+				-> Dùng cú pháp "Connection" để lưu kết nối
+					
+			- Tạo biến statement
+				// Tao doi tuong statement
+				String query = "INSERT INTO profilesv(hoten, ngaysinh, lop, sdt, diachi) VALUES (?, ?, ?, ?, ?);";
+				PreparedStatement statement = connection.prepareStatement(query);
+
+				-> Dùng cúa pháp PreparedStatement để tạo một statement
+
+				statement.setString(1, sinhvien.getHoten());
+				statement.set"kiểu dữ liệu muốn gán"(Vị trí muốn gán, "đối tượng bean"."get trả về kiểu dữ liệu"
+									
+				-> Dùng cú pháp này để gán giá trị vào "?" của  statement
+
+			- Thực hiện câu lệnh sql
+				statement.executeQuery() để lấy dữ liệu từ bảng ra
+				statement.executeUpdate() chỉ dùng để thực hiện câu lênh sql mà không lấy dữ liểu
+
+			- Lấy dữ liệu từ database
+				// Thuc hien truy van
+				ResultSet resultSet = statement.executeQuery();
+					
+				while (resultSet.next()) {
+					sinhvienBean sinhvien = new sinhvienBean();
+					sinhvien.setMsv(resultSet.getInt("msv"));
+					sinhviens.add(sinhvien);
+				}
+				-> Sử dụng ResultSet để lưu dữ liệu được lấy ra
+				-> Sử dụng "tên biến kiểu ResultSet".next() để duyệt qua các row(các hàng)
+
+					
+	-- Controller:
+		- Thư viện:
+			Sửa dụng thư viện servlet và một số khác
+		- Ý tưởng xây dựng controller
+			+ Sử dụng hai hàm chính doGet() và doPost() để lấy dữ liệu gửi về từ view xử lý giao tiếp với model
+				- Tạo các hàm xử lý
+				- Gọi các hàm trong doGet và doPost
+				- Trong các hàm có các bước nhỏ sau:
+					+ lấy dữ liệu được gửi từ view
+					+ Đóng gói vào model Bean
+					+ Gửi đóng gói đến model DAO
+			+ Thực hiện chuyển hướng giữa các trang
+		- Các hàm và cú pháp sử dụng:
+			+ request.getServletPath()
+				-> Lấy đường dẫn của servlet đang được thực thi
+			+ request.setAttribute("Thuộc tính của giá trị được gửi", giá trị muốn gửi);
+				-> set thuộc tính và giá trị muốn gửi đến một trang điều hướng dùng với cú pháp bên dưới
+			+ request.getRequestDispatcher("Đường dẫn chuyển hướng").forward(request, response);
+				-> chuyển hướng đến một trang theo đường dẫn
+
+			
+
+
+
+
