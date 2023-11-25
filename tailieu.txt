@@ -211,7 +211,8 @@ jdbc:mysql://localhost:3308/sinhvien
 		Làm trung gian giữa Model và View.
 2. Cách thiết lập mô hình MVC
 	Trong gói com.example.controller, bạn có thể đặt các Servlet hoặc các class điều khiển.
-	Trong gói com.example.model, đặt các class mô hình và các class DAO.
+	Trong gói com.example.model, đặt các class mô hình.
+	Trong gói com.example.dao, đặt các class DAO.
 	Trong gói com.example.view, đặt các trang JSP hoặc các file hiển thị khác.
 
 3. Các hàm và cú pháp thường được dùng trong tường phần của mô hình MVC
