@@ -1,10 +1,10 @@
 package com.qlsp.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.qlsp.Bean.SanPhamBean;
@@ -14,7 +14,7 @@ public class SanPhamDAO {
 	// Hien thi danh sach san pham
 	public List<SanPhamBean> ShowSP() {
 		// Tao doi tuong luu danh sach san pham
-		List<SanPhamBean> sanphambeanList = new ArrayList();
+		List<SanPhamBean> sanphambeanList = new ArrayList<SanPhamBean>();
 		
 		// Kiem tra loi
 		try {
@@ -62,7 +62,7 @@ public class SanPhamDAO {
 	// Hien thi danh sach san pham
 	public List<SanPhamBean> searchSP(String search) {
 		// Tao doi tuong luu danh sach san pham
-		List<SanPhamBean> sanphambeanList = new ArrayList();
+		List<SanPhamBean> sanphambeanList = new ArrayList<SanPhamBean>();
 		
 		// Kiem tra loi
 		try {
@@ -208,35 +208,35 @@ public class SanPhamDAO {
 	
 	
 	// Test giao tiep voi CSDL
-	public static void  main(String[] agrs) {
-		// Tao doi tuong de goi cac ham trong SanPhamDAO.java
-		SanPhamDAO sanphamdao =  new SanPhamDAO();
-		
-		// Tao ra mot bien list de luu danh sach tra ve
-		List<SanPhamBean> sanphambeanList = sanphamdao.ShowSP();
-		
-		// Tao ra mot bien list de tim kiem
-		//List<SanPhamBean> sanphambeanList = sanphamdao.searchSP("e");
-		
-		// Them san pham
-		//SanPhamBean sanpham = new SanPhamBean("Dong ho", "2023-11-26", "2,000,000", "");
-		//System.out.println(sanphamdao.insertSP(sanpham));
-		
-		// Sửa sảm phẩm
-		// Them san pham
-		//SanPhamBean sanpham = new SanPhamBean("Dong ho111", "2023-11-26", "2,000,000", "");
-		//sanpham.setMsp(1);
-		//System.out.println(sanphamdao.updateSP(sanpham));
-		
-		// Xoa san pham
-		//SanPhamBean sanpham = new SanPhamBean();
-		//sanpham.setMsp(1);
-		//System.out.println(sanphamdao.deleteSP(sanpham));
-		
-		// Duy danh sach in ra 
-		for(SanPhamBean sanphambean : sanphambeanList) {
-			System.out.println(sanphambean.toString());
-		}
-	}
+//	public static void  main(String[] agrs) {
+//		// Tao doi tuong de goi cac ham trong SanPhamDAO.java
+//		SanPhamDAO sanphamdao =  new SanPhamDAO();
+//		
+//		// Tao ra mot bien list de luu danh sach tra ve
+//		List<SanPhamBean> sanphambeanList = sanphamdao.ShowSP();
+//		
+//		// Tao ra mot bien list de tim kiem
+//		//List<SanPhamBean> sanphambeanList = sanphamdao.searchSP("e");
+//		
+//		// Them san pham
+//		//SanPhamBean sanpham = new SanPhamBean("Dong ho", "2023-11-26", "2,000,000", "");
+//		//System.out.println(sanphamdao.insertSP(sanpham));
+//		
+//		// Sửa sảm phẩm
+//		// Them san pham
+//		//SanPhamBean sanpham = new SanPhamBean("Dong ho111", "2023-11-26", "2,000,000", "");
+//		//sanpham.setMsp(1);
+//		//System.out.println(sanphamdao.updateSP(sanpham));
+//		
+//		// Xoa san pham
+//		//SanPhamBean sanpham = new SanPhamBean();
+//		//sanpham.setMsp(1);
+//		//System.out.println(sanphamdao.deleteSP(sanpham));
+//		
+//		// Duy danh sach in ra 
+//		for(SanPhamBean sanphambean : sanphambeanList) {
+//			System.out.println(sanphambean.toString());
+//		}
+//	}
 	
 }

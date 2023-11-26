@@ -8,13 +8,13 @@
 </head>
 <body>
 	<h1>Thêm sản phẩm</h1>
-	<form action="" method="get">
+	<form action="/QLSP/views/insert" method="get">
 		Tên sản phẩm: <input type="text" name="tensp" required="required"> <br>
 		Ngay nhap: <input type="date" name="ngaynhap" required="required"> <br>
 		Gia tien: <input type="text" name="giatien" required="required"> <br>
 		Ghi chu: <input type="text" name="ghichu"> <br> 
 		<input type="submit" value="Thêm">
 	</form>
-	<a href="qlsp.jsp">Back qlsp</a>
+	<a href="/QLSP/views/qlsp.jsp">Back qlsp</a>
 </body>
 </html>

@@ -9,13 +9,14 @@
 </head>
 <body>
 	<h1>Quản lý sản phẩm</h1>
+	<h1>${thongbao}</h1> 
 	<!-- Tim kiem -->
-	<form action="" method="get">
+	<form action="/QLSP/views/search" method="get">
 		<input type="text" name="search">
 		<input type="submit" value="Tìm kiếm">
 	</form>
 	<!-- Chuyen huong den trang them -->
-	<a href="insert.jsp">Thêm</a>
+	<a href="/QLSP/views/insert.jsp">Thêm</a>
 	<!-- Hien thi danh sach san pham -->
 	<table border="1">
 		<thead>
@@ -30,17 +31,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="i" items="1, 2, 3, 4, 5">
+			<c:forEach var="sanpham" items="${sanphamList}">
 				<tr>
-					<td>${i}</td>
-					<td>San pham${i}</td>
-					<td> Ngay ${i}</td>
-					<td>12 ${i}</td>
-					<td>jkasl${i}</td>
+					<td>${sanpham.getMsp()}</td>
+					<td>${sanpham.getTensp()}</td>
+					<td>${sanpham.getNgaynhap()}</td>
+					<td>${sanpham.getGiatien()}</td>
+					<td>${sanpham.getGhichu()}</td>
 					<!-- Chuyen huong den trang sua -->
-					<td><a href="update.jsp">Sửa</a></td>
+					<td><a href="/QLSP/views/update.jsp?msp=${sanpham.getMsp()}&tensp=${sanpham.getTensp()}&ngaynhap=${sanpham.getNgaynhap()}&
+					giatien=${sanpham.getGiatien()}&ghichu=${sanpham.getGhichu()}">Sửa</a></td>
 					<!-- Chuyen huong den trang xoa -->
-					<td><a href="delete.jsp">Xóa</a></td>
+					<td><a href="/QLSP/views/delete.jsp?msp=${sanpham.getMsp()}">Xóa</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -9,11 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+		String msp = request.getParameter("msp");
+	%>
 	<h1>Xoa sản phẩm</h1>
-	<form action="" method="get">
-		Msp: <input type="text" name="msp"> <br>
+	<form action="/QLSP/views/delete" method="get">
+		Msp: <input type="text" name="msp" value="<%=msp%>"> <br>
 		<input type="submit" value="Xóa">
 	</form>
-	<a href="qlsp.jsp">Back qlsp</a>
+	<a href="/QLSP/">Back qlsp</a>
 </body>
 </html>
