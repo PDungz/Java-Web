@@ -1,0 +1,71 @@
+-- Bài tập về nhà
+-- Ta có database db_car
+	car(bienxe, tenxe, loai, mau, ngaydang);
+	tìm kiếm, hiển thị, thêm, sửa, xóa
+
+*********************************************************************************************************************
+
+-- Dự án: QLSP
+---------------------------------------------------------------------------------------------------------------------
+-- Tạo CSDL
+create database db_qlsp;
+
+use db_qlsp;
+
+create table sanpham(
+	msp int auto_increment primary key,
+    tensp varchar(50) not null,
+    ngaynhap date not null,
+    giatien varchar(15) not null,
+    ghichu varchar(100)
+);
+
+select * from sanpham;
+
+INSERT INTO sanpham (tensp, ngaynhap, giatien) VALUES ('tainghe', '2023-11-26', '200,000');
+INSERT INTO sanpham (tensp, ngaynhap, giatien) VALUES ('sacphin', '2023-11-26', '300,000');
+INSERT INTO sanpham (tensp, ngaynhap, giatien) VALUES ('daycap', '2023-11-26', '500,000');
+INSERT INTO sanpham (tensp, ngaynhap, giatien) VALUES ('dieukien', '2023-11-26', '100,000');
+
+UPDATE sanpham SET giatien = '2,500,000' WHERE msp = 1;
+
+DELETE FROM sanpham WHERE msp = 3;
+
+SELECT * FROM sanpham WHERE msp like '%200,000%' or tensp like '%200,000%' or giatien like '%200,000%';
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+************************************************************************************************************************
+
+-- Dự án: QLSV
+------------------------------------------------------------------------------------------------------------------------
+create database qlsv;
+use qlsv;
+
+create table profilesv (
+    msv int auto_increment primary key,
+    hoten varchar(50) not null,
+    ngaysinh datetime,
+    lop varchar(20),
+    sdt varchar(10),
+    diachi varchar(100)
+);
+
+INSERT INTO PROFILESV (hoten, ngaysinh, lop, sdt, diachi)
+VALUES
+    ('Nguyen Van A', '2000-01-01', 'A1', '1234567890', '123 Duong ABC, Quan XYZ'),
+    ('Tran Thi B', '1998-05-15', 'B2', '0987654321', '456 Duong XYZ, Quan ABC'),
+    ('Le Van C', '1999-08-20', 'C3', '9876543210', '789 Duong UVW, Quan PQR');
+
+select * from PROFILESV;
+
+UPDATE PROFILESV SET hoten = 'Nguyen Van A' WHERE msv = 1;
+
+DELETE FROM PROFILESV WHERE msv = 3;
+
+SELECT * FROM PROFILESV WHERE msv like '%1234567890%' or hoten like '%1234567890%' or sdt like '%1234567890%';
+
+------------------------------------------------------------------------------------------------------------------------
